@@ -156,17 +156,23 @@ function main() {
     if(tower === 1) {
       return 1;
     }
+    if(tower === 0) {
+      return 0;
+    }
     let stepTree = [];
 
-    for(let f = 0; f < tower; f++) {
-      stepTree.push(Math.max(findStepsRequired(f - 1, eggs - 1), findStepsRequired(tower - f, eggs))) 
+    for(let f = 1; f <= tower; f++) {
+      let breakEgg = findStepsRequired(f - 1, eggs - 1);
+      let dontBreak = findStepsRequired(tower - f, eggs);
+      stepTree.push(Math.max(breakEgg, dontBreak));
+      // stepTree.push(Math.max(findStepsRequired(f - 1, eggs - 1), findStepsRequired(tower - f, eggs))) 
     }
-
-    return stepTree.reduce((acc, cur) => cur < acc ? cur : acc);
+    return stepTree.reduce((acc, cur) => cur < acc ? cur : acc) + 1;
   }
-
-  console.log(findStepsRequired(7, 2))
-  console.log(findStepsRequired(7, 3))
+  console.log('7/2')
+  console.log(findStepsRequired(100, 2))
+  // console.log('7/3')
+  // console.log(findStepsRequired(7, 3))
   // console.log(findStepsRequired(30, 4))
 }
 
