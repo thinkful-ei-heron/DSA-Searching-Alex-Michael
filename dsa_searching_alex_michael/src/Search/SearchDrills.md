@@ -14,6 +14,8 @@ Return Title, author, etc.
 Use binary search for the initial search through numbers
 Linear search through the book titles
 
+See Dewey.js
+
 ### Question 4
   1)
                 35

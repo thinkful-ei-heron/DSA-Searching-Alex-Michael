@@ -20,7 +20,8 @@ const search = {
     // console.log(item);
   
     if (item == value) {
-      return `Found the item in ${counter} tries`;
+      // return `Found the item in ${counter} tries.`;
+      return index;
     }
     else if (item < value) {
       return this.binarySearch(array, value, index + 1, end, counter);
@@ -35,15 +36,17 @@ const search = {
     for(let i = 0; i < array.length; i++) {
       counter++;
       if(array[i] == value) {
-        return `Found the item in ${counter} tries.`;
+        return i;
+        // return `Found the item in ${counter} tries.`;
       }
     }
     return 'Did not find the item';
   }
-
 }
 
-export default search;
+module.exports = search;
+// export default search;
+
 
 // binarySearch([3, 5, 6, 8, 11, 12, 14, 15, 17, 18], 8); //12 -> 6 -> 8
 // binarySearch([3, 5, 6, 8, 11, 12, 14, 15, 17, 18], 16); //12 -> 17 -> 14 -> 15 -> Failed
