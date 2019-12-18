@@ -128,6 +128,8 @@ function main() {
 
   function eggDrop(tower = 100) {
     //smallest bigSteps such that 1 + 2 + ... + bigSteps >= tower
+    //
+
     let bigSteps = Math.ceil(1/2 * Math.sqrt(8*tower + 1) - 1)
     let floor = 0;
     while (bigSteps > 0 && floor <= tower) {
@@ -143,7 +145,29 @@ function main() {
     console.log(counter);
     return --floor;
   }
-  console.log(eggDrop());
+  // console.log(eggDrop());
+
+  let eggTree = new BinarySearchTree();
+
+  function findStepsRequired(tower, eggs) {
+    if(eggs === 1) {
+      return tower;
+    }
+    if(tower === 1) {
+      return 1;
+    }
+    let stepTree = [];
+
+    for(let f = 0; f < tower; f++) {
+      stepTree.push(Math.max(findStepsRequired(f - 1, eggs - 1), findStepsRequired(tower - f, eggs))) 
+    }
+
+    return stepTree.reduce((acc, cur) => cur < acc ? cur : acc);
+  }
+
+  console.log(findStepsRequired(7, 2))
+  console.log(findStepsRequired(7, 3))
+  // console.log(findStepsRequired(30, 4))
 }
 
 main();
