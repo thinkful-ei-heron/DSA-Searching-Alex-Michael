@@ -71,12 +71,10 @@ function main() {
   function bfs(tree, values = []) {
     const queue = new Queue();
     let currNode = tree;
-    console.log(tree.value);
 
     while(currNode !== null) {
       
       values.push(currNode.value);
-
       if(currNode.left) {
         queue.enqueue(currNode.left);
       }
@@ -88,9 +86,64 @@ function main() {
     }
     return values;
   }
+  // console.log(bfs(enterprise));
+
+  function maxProfitMax(array) {
+    let start = 0;
+    let end = 0;
+    let maxProfit = 0;
+    for(let i=0; i < array.length; i++) {
+      if ((i === 0 || array[i] < array [i-1]) && array[i] < array[i+1]) {
+        start = i;
+      }  
+      if ((i > 0 && array[i-1] < array[i]) && (i + 1 === array.length || array[i + 1] < array[i])) {
+        end = i;
+      }
+      if(end < start) {
+        end = start;
+      } 
+      let profit = array[end] - array[start];
+      if(maxProfit < profit) {
+        console.log('start: ' + start)
+        console.log('end: ' + end)
+        console.log('maxProfit ' + profit)
+        maxProfit = profit;
+        start = end;
+      }
+    }
+    return maxProfit;
+  }
+
+  // console.log(maxProfitMax([128, 97, 121, 123, 96, 98, 97, 125, 105]));
+  
+  let counter = 0;
+
+  function drop(floor) {
+    counter++;
+    // console.log(floor)
+    //returns true if egg does break
+    return floor > 100;
+  }
 
 
-  console.log(bfs(enterprise));
+  function eggDrop(tower = 100) {
+    //smallest bigSteps such that 1 + 2 + ... + bigSteps >= tower
+    let bigSteps = Math.ceil(1/2 * Math.sqrt(8*tower + 1) - 1)
+    let floor = 0;
+    while (bigSteps > 0 && floor <= tower) {
+      floor = floor + bigSteps;
+      bigSteps--;
+      if(drop(floor)) break;  
+    }
+    floor -= bigSteps;
+    while(floor <= tower) {
+      if(drop(floor)) break;
+      floor++;  
+    }
+    console.log(counter);
+    return --floor;
+  }
+  console.log(eggDrop());
 }
 
 main();
